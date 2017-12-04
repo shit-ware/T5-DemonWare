@@ -1,0 +1,34 @@
+﻿@model System.Collections.Generic.Dictionary<ulong, DWServer.MatchMakingInfo>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>alterOps servers</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Host name</th>
+                <th>License type</th>
+                <th>Players/Max</th>
+                <th>Map (Gametype)</th>
+                <th>IP:port</th>
+                <th>User ID</th>
+            </tr>
+            @*
+            we need to add support for storing the server's key in the session data too, and the user ID that owns the key
+            to allow making high XP servers unranked
+            *@
+            @foreach (KeyValuePair<ulong, DWServer.MatchMakingInfo> session in Model)
+            {
+               <tr>
+                    <td>@session.Value.HostName</td>
+                    <td>#@session.Value.LicenseType</td>
+                    <td>@session.Value.Players/@session.Value.MaxPlayers</td>
+                    <td>@session.Value.MapName (@session.Value.GameTypeName)</td>
+                    <td>@session.Value.ConnectionValue</td>
+                    <td><a href="http://alterdw.info/memberlist.php?mode=viewprofile&amp;u=@session.Value.User">#@session.Value.User</a></td>
+               </tr>
+            }            
+        </table>
+    </body>
+</html>
